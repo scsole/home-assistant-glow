@@ -1,0 +1,62 @@
+---
+# Home Assistant Glow
+#
+# Read your electricity meter by means of the pulse LED on your
+# meter, useful if you do not have a serial port (P1).
+# © Klaas Schoute
+#
+substitutions:
+  device_name: home-assistant-glow
+  friendly_name: Home Assistant Glow
+  project_version: "4.2.1-poe"
+  device_description: "Measure your energy consumption with the pulse LED on your smart meter - Olimex ESP32-PoE"
+
+  # Define the GPIO pins
+  pulse_pin: GPIO26
+  status_led: GPIO5
+  led_pin_red: GPIO2
+  led_pin_green: GPIO4
+
+esphome:
+  name: '${device_name}'
+  comment: '${device_description}'
+  name_add_mac_suffix: true
+  min_version: 2024.6.0
+  project:
+    name: "klaasnicolaas.home-assistant-glow"
+    version: "${project_version}"
+
+dashboard_import:
+  package_import_url: github://scsole/home-assistant-glow/home-assistant-glow/esp32-poe.yaml@main
+
+esp32:
+  board: esp32-poe
+  framework:
+    type: arduino
+
+packages:
+  remote_package:
+    url: https://github.com/klaasnicolaas/home-assistant-glow/
+    ref: "4.2.1"
+    files:
+      - components/basis.yaml
+      - components/updates.yaml
+      - components/status_led.yaml
+      - components/pulse_meter.yaml
+
+# Enable logging
+logger:
+
+# Ethernet interface, config suitable for the Olimex ESP32-POE
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO17_OUT
+  phy_addr: 0
+  power_pin: GPIO12
+
+# Local Web Server running on port 80
+web_server:
+  id: esphome_web_server
+  version: 3
