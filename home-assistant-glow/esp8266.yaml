@@ -38,6 +38,7 @@ packages:
     ref: "4.2.1"
     files:
       - components/basis.yaml
+      - components/wifi.yaml
       - components/updates.yaml
       - components/status_led.yaml
       - components/pulse_meter.yaml

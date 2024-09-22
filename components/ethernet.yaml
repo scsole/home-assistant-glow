@@ -1,0 +1,8 @@
+---
+# Sensors for Ethernet information
+text_sensor:
+  # IP address
+  - platform: ethernet_info
+    ip_address:
+      name: '${friendly_name} - IP Address'
+      icon: mdi:ethernet
